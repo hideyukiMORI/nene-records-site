@@ -1,0 +1,152 @@
+---
+import DocLayout from '../layouts/DocLayout.astro'
+
+const endpoints = [
+  {
+    group: 'Auth',
+    routes: [
+      { method: 'POST', path: '/auth/login', desc: 'Login and obtain JWT token' },
+    ],
+  },
+  {
+    group: 'Entity Types',
+    routes: [
+      { method: 'GET',    path: '/entity-types',     desc: 'List all entity types' },
+      { method: 'POST',   path: '/entity-types',     desc: 'Create an entity type' },
+      { method: 'GET',    path: '/entity-types/{id}', desc: 'Get an entity type' },
+      { method: 'PUT',    path: '/entity-types/{id}', desc: 'Update an entity type' },
+      { method: 'DELETE', path: '/entity-types/{id}', desc: 'Delete an entity type' },
+    ],
+  },
+  {
+    group: 'Entities (Records)',
+    routes: [
+      { method: 'GET',    path: '/entities',           desc: 'List entities (filter by type, status, locale, tags)' },
+      { method: 'POST',   path: '/entities',           desc: 'Create an entity' },
+      { method: 'GET',    path: '/entities/{id}',      desc: 'Get an entity' },
+      { method: 'PUT',    path: '/entities/{id}',      desc: 'Update an entity' },
+      { method: 'DELETE', path: '/entities/{id}',      desc: 'Delete an entity' },
+      { method: 'GET',    path: '/entities/search',    desc: 'Full-text search across entities' },
+      { method: 'POST',   path: '/entities/process-scheduled', desc: 'Transition scheduled → published' },
+    ],
+  },
+  {
+    group: 'Field Defs',
+    routes: [
+      { method: 'GET',    path: '/field-defs',      desc: 'List field definitions' },
+      { method: 'POST',   path: '/field-defs',      desc: 'Create a field definition' },
+      { method: 'DELETE', path: '/field-defs/{id}', desc: 'Delete a field definition' },
+    ],
+  },
+  {
+    group: 'Tags',
+    routes: [
+      { method: 'GET',    path: '/tags',      desc: 'List tags' },
+      { method: 'POST',   path: '/tags',      desc: 'Create a tag' },
+      { method: 'DELETE', path: '/tags/{id}', desc: 'Delete a tag' },
+    ],
+  },
+  {
+    group: 'Media',
+    routes: [
+      { method: 'POST', path: '/media', desc: 'Upload image or file (multipart/form-data)' },
+      { method: 'GET',  path: '/media', desc: 'List uploaded media' },
+    ],
+  },
+  {
+    group: 'Webhooks',
+    routes: [
+      { method: 'GET',    path: '/webhooks',      desc: 'List webhooks' },
+      { method: 'POST',   path: '/webhooks',      desc: 'Create a webhook' },
+      { method: 'DELETE', path: '/webhooks/{id}', desc: 'Delete a webhook' },
+    ],
+  },
+  {
+    group: 'Site Settings',
+    routes: [
+      { method: 'GET', path: '/settings',         desc: 'List all settings' },
+      { method: 'PUT', path: '/settings/{key}',   desc: 'Update a setting value' },
+    ],
+  },
+  {
+    group: 'Public (no auth)',
+    routes: [
+      { method: 'GET', path: '/public/bootstrap',        desc: 'Site settings + navigation for public shell' },
+      { method: 'GET', path: '/public/entities',         desc: 'List published entities' },
+      { method: 'GET', path: '/public/entities/{id}',    desc: 'Get published entity by ID' },
+      { method: 'GET', path: '/public/entities/by-slug', desc: 'Get published entity by slug' },
+    ],
+  },
+  {
+    group: 'Dashboard & Analytics',
+    routes: [
+      { method: 'GET', path: '/dashboard', desc: 'Access stats + published count summary' },
+      { method: 'GET', path: '/analytics/access', desc: 'Daily access log aggregation' },
+    ],
+  },
+  {
+    group: 'Export',
+    routes: [
+      { method: 'GET', path: '/export/entities', desc: 'Export entities as CSV or JSON' },
+    ],
+  },
+]
+
+const methodColors: Record<string, string> = {
+  GET:    'bg-green-900/60 text-green-300 border-green-700/40',
+  POST:   'bg-blue-900/60 text-blue-300 border-blue-700/40',
+  PUT:    'bg-yellow-900/60 text-yellow-300 border-yellow-700/40',
+  PATCH:  'bg-orange-900/60 text-orange-300 border-orange-700/40',
+  DELETE: 'bg-red-900/60 text-red-300 border-red-700/40',
+}
+---
+
+<DocLayout section="API Reference" description="Full REST API reference for NeNe Records.">
+  <h1 class="mb-2 text-3xl font-bold text-white">API Reference</h1>
+  <p class="mb-4 text-gray-400">Base URL: <code class="text-nene-400">https://your-host/api/v1</code></p>
+  <p class="mb-8 text-gray-400">
+    The full machine-readable spec is available as <a href="/openapi">OpenAPI 3.x YAML</a>.
+  </p>
+
+  <div class="not-prose space-y-8">
+    {endpoints.map((group) => (
+      <div>
+        <h2 class="mb-3 text-sm font-semibold uppercase tracking-wider text-gray-500">{group.group}</h2>
+        <div class="overflow-hidden rounded-xl border border-white/10">
+          {group.routes.map((route, i) => (
+            <div class={`flex items-start gap-4 px-4 py-3 ${i > 0 ? 'border-t border-white/10' : ''} hover:bg-white/5`}>
+              <span class={`mt-0.5 shrink-0 rounded border px-1.5 py-0.5 font-mono text-xs font-semibold ${methodColors[route.method] ?? ''}`}>
+                {route.method}
+              </span>
+              <div class="min-w-0">
+                <code class="text-sm text-gray-200">/api/v1{route.path}</code>
+                <p class="mt-0.5 text-sm text-gray-500">{route.desc}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    ))}
+  </div>
+
+  <h2>Field types</h2>
+  <p>When creating field definitions, use one of these <code>type</code> values:</p>
+  <ul>
+    <li><code>text</code> — plain text string</li>
+    <li><code>int</code> — integer</li>
+    <li><code>bool</code> — boolean</li>
+    <li><code>enum</code> — predefined options</li>
+    <li><code>datetime</code> — ISO 8601 datetime</li>
+    <li><code>image</code> — image upload (references media asset)</li>
+    <li><code>file</code> — file upload (references media asset)</li>
+    <li><code>markdown</code> — Markdown text body</li>
+    <li><code>relation</code> — link to another entity</li>
+  </ul>
+
+  <h2>Rate limiting</h2>
+  <p>
+    120 requests per 60 seconds per IP address. When exceeded, the API returns
+    <code>429 Too Many Requests</code> with <code>Retry-After</code> and
+    <code>X-RateLimit-*</code> headers.
+  </p>
+</DocLayout>

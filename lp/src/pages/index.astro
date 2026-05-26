@@ -1,0 +1,236 @@
+---
+import Layout from '../layouts/Layout.astro'
+import Header from '../components/Header.astro'
+import Footer from '../components/Footer.astro'
+
+const features = [
+  {
+    icon: '🗂️',
+    title: '型安全なエンティティ',
+    description:
+      'text / int / bool / enum / datetime / image / file / markdown / relation — 9 種類の型付きフィールドで、WordPress のような非型付きメタデータから脱却。',
+  },
+  {
+    icon: '📡',
+    title: 'JSON API + OpenAPI',
+    description:
+      '全操作を REST API として公開。OpenAPI 3.x 仕様書を同梱し、型安全なクライアント生成が可能。Problem Details (RFC 9457) で一貫したエラーレスポンス。',
+  },
+  {
+    icon: '🤖',
+    title: 'MCP 対応（60+ ツール）',
+    description:
+      'Model Context Protocol に対応した 60 以上のツールで、AI エージェントがエンティティ CRUD・検索・エクスポートを自然言語で操作できる。',
+  },
+  {
+    icon: '🎛️',
+    title: '管理 UI 内蔵',
+    description:
+      'React + TypeScript の管理フロントエンドを内蔵。エンティティタイプ定義・フィールド管理・レコード編集・メディアライブラリ・ナビゲーション設定まで。',
+  },
+  {
+    icon: '🔐',
+    title: '認証・権限管理',
+    description:
+      'JWT Bearer 認証 + admin / editor ロール。CapabilityMiddleware で書き込み系エンドポイントを保護。公開 GET は認証不要。',
+  },
+  {
+    icon: '🚀',
+    title: 'ヘッドレス CMS として本番運用可能',
+    description:
+      '予約公開・ドラフトプレビュー・Webhook・Export API (CSV/JSON)・全文検索・ETag キャッシュ・レート制限・スケジュール Cron — 運用に必要な機能を網羅。',
+  },
+]
+
+const techStack = [
+  { label: 'PHP 8.4+', note: 'バックエンド' },
+  { label: 'NENE2', note: 'フレームワーク' },
+  { label: 'MySQL 8.4', note: 'データベース' },
+  { label: 'React + TypeScript', note: '管理 UI' },
+  { label: 'OpenAPI 3.x', note: 'API 仕様' },
+  { label: 'MCP', note: 'AI 連携' },
+  { label: 'Docker', note: '開発環境' },
+  { label: 'PHPUnit', note: 'テスト' },
+]
+---
+
+<Layout>
+  <Header />
+
+  <!-- Hero -->
+  <section class="relative flex min-h-screen flex-col items-center justify-center overflow-hidden px-6 pt-16">
+    <!-- Background glow -->
+    <div
+      class="pointer-events-none absolute left-1/2 top-1/3 h-[600px] w-[600px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-nene-600/20 blur-[120px]"
+    ></div>
+
+    <div class="relative z-10 mx-auto max-w-4xl text-center">
+      <!-- Badge -->
+      <div class="mb-6 inline-flex items-center gap-2 rounded-full border border-nene-500/40 bg-nene-950/60 px-4 py-1.5 text-sm text-nene-300">
+        <span class="relative flex h-2 w-2">
+          <span class="absolute inline-flex h-full w-full animate-ping rounded-full bg-nene-400 opacity-75"></span>
+          <span class="relative inline-flex h-2 w-2 rounded-full bg-nene-400"></span>
+        </span>
+        MIT License · PHP 8.4 · MCP 対応
+      </div>
+
+      <h1 class="mb-6 text-5xl font-bold leading-tight tracking-tight text-white md:text-7xl">
+        API ファーストな<br />
+        <span class="bg-gradient-to-r from-nene-400 to-indigo-400 bg-clip-text text-transparent">
+          柔軟エンティティ
+        </span><br />
+        プラットフォーム
+      </h1>
+
+      <p class="mx-auto mb-10 max-w-2xl text-lg leading-relaxed text-gray-400">
+        NeNe Records は WordPress より軽く、より型安全なヘッドレス CMS です。<br />
+        JSON API・OpenAPI・MCP ツールで、人も AI も同じデータを操作できます。
+      </p>
+
+      <div class="flex flex-wrap items-center justify-center gap-4">
+        <a
+          href="https://github.com/hideyukiMORI/nene-records"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="flex items-center gap-2 rounded-lg bg-nene-600 px-6 py-3 font-semibold text-white shadow-lg shadow-nene-900/50 transition hover:bg-nene-500"
+        >
+          <svg class="h-5 w-5" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z" />
+          </svg>
+          GitHub で見る
+        </a>
+        <a
+          href="https://nene-records.dev"
+          class="flex items-center gap-2 rounded-lg border border-white/20 px-6 py-3 font-semibold text-white transition hover:border-white/40 hover:bg-white/5"
+        >
+          ドキュメント →
+        </a>
+      </div>
+    </div>
+
+    <!-- Scroll indicator -->
+    <div class="absolute bottom-8 left-1/2 -translate-x-1/2 animate-bounce text-gray-500">
+      <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+      </svg>
+    </div>
+  </section>
+
+  <!-- Features -->
+  <section id="features" class="py-24 px-6">
+    <div class="mx-auto max-w-6xl">
+      <div class="mb-16 text-center">
+        <h2 class="mb-4 text-3xl font-bold text-white md:text-4xl">機能</h2>
+        <p class="text-gray-400">本番運用に必要なものを、最初からすべて。</p>
+      </div>
+
+      <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+        {features.map((f) => (
+          <div class="group rounded-xl border border-white/10 bg-white/5 p-6 backdrop-blur-sm transition hover:border-nene-500/40 hover:bg-white/8">
+            <div class="mb-4 text-3xl">{f.icon}</div>
+            <h3 class="mb-2 font-semibold text-white">{f.title}</h3>
+            <p class="text-sm leading-relaxed text-gray-400">{f.description}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Quick Start -->
+  <section id="quickstart" class="py-24 px-6">
+    <div class="mx-auto max-w-4xl">
+      <div class="mb-12 text-center">
+        <h2 class="mb-4 text-3xl font-bold text-white md:text-4xl">はじめる</h2>
+        <p class="text-gray-400">Docker があれば数分でローカル環境が動きます。</p>
+      </div>
+
+      <div class="space-y-4">
+        <div class="rounded-xl border border-white/10 bg-gray-900 p-6">
+          <p class="mb-3 text-xs font-semibold uppercase tracking-wider text-gray-500">1. クローン</p>
+          <pre class="overflow-x-auto font-mono text-sm text-green-400"><code>git clone https://github.com/hideyukiMORI/nene-records.git
+cd nene-records</code></pre>
+        </div>
+
+        <div class="rounded-xl border border-white/10 bg-gray-900 p-6">
+          <p class="mb-3 text-xs font-semibold uppercase tracking-wider text-gray-500">2. 環境変数を設定</p>
+          <pre class="overflow-x-auto font-mono text-sm text-green-400"><code>cp .env.example .env
+# .env を編集して DB パスワードなどを設定</code></pre>
+        </div>
+
+        <div class="rounded-xl border border-white/10 bg-gray-900 p-6">
+          <p class="mb-3 text-xs font-semibold uppercase tracking-wider text-gray-500">3. 起動</p>
+          <pre class="overflow-x-auto font-mono text-sm text-green-400"><code>docker compose up -d
+docker compose exec app vendor/bin/phinx migrate
+cd frontend && npm install && npm run dev</code></pre>
+        </div>
+
+        <div class="rounded-xl border border-white/10 bg-gray-900 p-6">
+          <p class="mb-3 text-xs font-semibold uppercase tracking-wider text-gray-500">4. アクセス</p>
+          <div class="space-y-1 font-mono text-sm">
+            <p><span class="text-gray-500">管理画面:</span> <span class="text-nene-300">http://localhost:5173/admin</span></p>
+            <p><span class="text-gray-500">公開サイト:</span> <span class="text-nene-300">http://localhost:5173/</span></p>
+            <p><span class="text-gray-500">API:</span> <span class="text-nene-300">http://localhost:8082/api/v1/</span></p>
+          </div>
+        </div>
+      </div>
+
+      <div class="mt-8 text-center">
+        <a
+          href="https://nene-records.dev/getting-started"
+          class="text-sm text-nene-400 transition hover:text-nene-300"
+        >
+          詳細なセットアップガイド →
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Tech Stack -->
+  <section class="py-24 px-6">
+    <div class="mx-auto max-w-4xl">
+      <div class="mb-12 text-center">
+        <h2 class="mb-4 text-3xl font-bold text-white md:text-4xl">技術スタック</h2>
+      </div>
+
+      <div class="flex flex-wrap justify-center gap-3">
+        {techStack.map((t) => (
+          <div class="rounded-full border border-white/10 bg-white/5 px-4 py-2 text-sm">
+            <span class="font-medium text-white">{t.label}</span>
+            <span class="ml-1 text-gray-500">/ {t.note}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="relative py-24 px-6">
+    <div class="pointer-events-none absolute inset-0 overflow-hidden">
+      <div class="absolute left-1/2 top-1/2 h-[400px] w-[400px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-nene-600/15 blur-[100px]"></div>
+    </div>
+
+    <div class="relative mx-auto max-w-2xl text-center">
+      <h2 class="mb-4 text-3xl font-bold text-white md:text-4xl">
+        今すぐ試してみる
+      </h2>
+      <p class="mb-8 text-gray-400">
+        MIT ライセンスのオープンソースプロジェクトです。<br />
+        Issue・PR・フィードバック、いつでも歓迎します。
+      </p>
+
+      <a
+        href="https://github.com/hideyukiMORI/nene-records"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="inline-flex items-center gap-2 rounded-lg bg-nene-600 px-8 py-4 font-semibold text-white shadow-lg shadow-nene-900/50 transition hover:bg-nene-500"
+      >
+        <svg class="h-5 w-5" fill="currentColor" viewBox="0 0 24 24">
+          <path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z" />
+        </svg>
+        GitHub でスターをつける
+      </a>
+    </div>
+  </section>
+
+  <Footer />
+</Layout>

@@ -1,0 +1,18 @@
+@import "tailwindcss";
+
+@theme {
+  --color-nene-50: #f0f4ff;
+  --color-nene-100: #dde6ff;
+  --color-nene-200: #c2d1ff;
+  --color-nene-300: #9ab4ff;
+  --color-nene-400: #708bff;
+  --color-nene-500: #4d64f8;
+  --color-nene-600: #3a47ed;
+  --color-nene-700: #2f37d3;
+  --color-nene-800: #2a2fab;
+  --color-nene-900: #282e87;
+  --color-nene-950: #1a1c52;
+
+  --font-sans: "Inter", "Hiragino Sans", "Meiryo", system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", "Fira Code", monospace;
+}

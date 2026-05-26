@@ -1,0 +1,92 @@
+@import "tailwindcss";
+
+@theme {
+  --color-nene-50: #f0f4ff;
+  --color-nene-100: #dde6ff;
+  --color-nene-400: #708bff;
+  --color-nene-500: #4d64f8;
+  --color-nene-600: #3a47ed;
+  --color-nene-950: #1a1c52;
+
+  --font-sans: "Inter", "Hiragino Sans", "Meiryo", system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", "Fira Code", ui-monospace, monospace;
+}
+
+/* Prose styles for doc content */
+.prose h2 {
+  margin-top: 2.5rem;
+  margin-bottom: 1rem;
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #f3f4f6;
+  border-bottom: 1px solid rgba(255,255,255,0.1);
+  padding-bottom: 0.5rem;
+}
+.prose h3 {
+  margin-top: 2rem;
+  margin-bottom: 0.75rem;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #e5e7eb;
+}
+.prose p {
+  margin-bottom: 1rem;
+  line-height: 1.75;
+  color: #d1d5db;
+}
+.prose code {
+  border-radius: 0.25rem;
+  background: rgba(255,255,255,0.1);
+  padding: 0.125rem 0.375rem;
+  font-family: var(--font-mono);
+  font-size: 0.875rem;
+  color: #708bff;
+}
+.prose pre {
+  margin: 1rem 0;
+  overflow-x: auto;
+  border-radius: 0.75rem;
+  border: 1px solid rgba(255,255,255,0.1);
+  background: #111827;
+  padding: 1rem;
+}
+.prose pre code {
+  background: transparent;
+  padding: 0;
+  color: #86efac;
+}
+.prose a {
+  color: #708bff;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  transition: color 150ms;
+}
+.prose a:hover {
+  color: #9ab4ff;
+}
+.prose ul {
+  margin-bottom: 1rem;
+  list-style-type: disc;
+  padding-left: 1.5rem;
+  color: #d1d5db;
+}
+.prose ul li {
+  margin-bottom: 0.25rem;
+}
+.prose table {
+  width: 100%;
+  font-size: 0.875rem;
+}
+.prose th {
+  border: 1px solid rgba(255,255,255,0.1);
+  background: rgba(255,255,255,0.05);
+  padding: 0.5rem 1rem;
+  text-align: left;
+  font-weight: 600;
+  color: #e5e7eb;
+}
+.prose td {
+  border: 1px solid rgba(255,255,255,0.1);
+  padding: 0.5rem 1rem;
+  color: #d1d5db;
+}

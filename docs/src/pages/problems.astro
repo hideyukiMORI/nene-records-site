@@ -1,0 +1,123 @@
+---
+import DocLayout from '../layouts/DocLayout.astro'
+
+const problems = [
+  {
+    slug: 'validation-error',
+    status: 422,
+    title: 'Validation Error',
+    desc: 'One or more fields failed validation.',
+    extra: `"errors": [{ "field": "name", "detail": "Name is required.", "code": "required" }]`,
+  },
+  {
+    slug: 'entity-type-not-found',
+    status: 404,
+    title: 'Entity Type Not Found',
+    desc: 'No entity type exists with the given ID.',
+    extra: null,
+  },
+  {
+    slug: 'entity-not-found',
+    status: 404,
+    title: 'Entity Not Found',
+    desc: 'No entity exists with the given ID.',
+    extra: null,
+  },
+  {
+    slug: 'entity-type-has-entities',
+    status: 409,
+    title: 'Entity Type Has Entities',
+    desc: 'Cannot delete an entity type that still contains entities.',
+    extra: `"entity_count": 42`,
+  },
+  {
+    slug: 'entity-type-slug-conflict',
+    status: 409,
+    title: 'Entity Type Slug Conflict',
+    desc: 'An entity type with the given slug already exists.',
+    extra: null,
+  },
+  {
+    slug: 'unauthenticated',
+    status: 401,
+    title: 'Unauthenticated',
+    desc: 'Request is missing or has an invalid Bearer token.',
+    extra: null,
+  },
+  {
+    slug: 'forbidden',
+    status: 403,
+    title: 'Forbidden',
+    desc: 'The authenticated user does not have the required capability.',
+    extra: null,
+  },
+  {
+    slug: 'setting-key-not-found',
+    status: 404,
+    title: 'Setting Key Not Found',
+    desc: 'No setting exists with the given key.',
+    extra: null,
+  },
+  {
+    slug: 'setting-value-invalid',
+    status: 422,
+    title: 'Setting Value Invalid',
+    desc: 'The provided value is not valid for this setting key.',
+    extra: null,
+  },
+  {
+    slug: 'rate-limit-exceeded',
+    status: 429,
+    title: 'Rate Limit Exceeded',
+    desc: 'Too many requests from this IP address.',
+    extra: `"retry_after": 42`,
+  },
+]
+---
+
+<DocLayout section="Problem Details" description="RFC 9457 error responses from the NeNe Records API.">
+  <h1 class="mb-2 text-3xl font-bold text-white">Problem Details</h1>
+  <p class="mb-8 text-gray-400">
+    All API errors follow <a href="https://www.rfc-editor.org/rfc/rfc9457" target="_blank" rel="noopener noreferrer">RFC 9457 — Problem Details for HTTP APIs</a>.
+    The <code>type</code> URI is canonical and stable across versions.
+  </p>
+
+  <h2>Response shape</h2>
+  <pre><code>{`{
+  "type":   "https://nene-records.dev/problems/<slug>",
+  "title":  "Human-readable summary",
+  "status": 422,
+  "detail": "Optional longer explanation",
+  // ...extension fields
+}`}</code></pre>
+
+  <h2>Problem types</h2>
+
+  <div class="not-prose space-y-4">
+    {problems.map((p) => (
+      <div id={p.slug} class="rounded-xl border border-white/10 bg-white/5 p-4">
+        <div class="mb-2 flex items-start justify-between gap-4">
+          <div>
+            <code class="text-sm text-nene-400">
+              https://nene-records.dev/problems/{p.slug}
+            </code>
+            <p class="mt-1 font-semibold text-white">{p.title}</p>
+          </div>
+          <span class={`shrink-0 rounded px-2 py-0.5 font-mono text-sm font-bold ${
+            p.status < 500
+              ? p.status === 429 ? 'bg-orange-900/60 text-orange-300' :
+                p.status >= 400 && p.status < 500 ? 'bg-red-900/60 text-red-300' :
+                'bg-yellow-900/60 text-yellow-300'
+              : 'bg-red-900/80 text-red-200'
+          }`}>
+            {p.status}
+          </span>
+        </div>
+        <p class="text-sm text-gray-400">{p.desc}</p>
+        {p.extra && (
+          <pre class="mt-3 rounded bg-gray-900 p-3 font-mono text-xs text-green-400"><code>{p.extra}</code></pre>
+        )}
+      </div>
+    ))}
+  </div>
+</DocLayout>

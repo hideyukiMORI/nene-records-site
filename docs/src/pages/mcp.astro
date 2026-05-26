@@ -1,0 +1,128 @@
+---
+import DocLayout from '../layouts/DocLayout.astro'
+
+const toolGroups = [
+  {
+    group: 'Entity Types',
+    tools: [
+      'listEntityTypes', 'getEntityType', 'createEntityType', 'updateEntityType', 'deleteEntityType',
+    ],
+  },
+  {
+    group: 'Entities (Records)',
+    tools: [
+      'listEntities', 'getEntity', 'createEntity', 'updateEntity', 'deleteEntity',
+      'searchEntities', 'processScheduledEntities',
+    ],
+  },
+  {
+    group: 'Field Definitions',
+    tools: [
+      'listFieldDefs', 'createFieldDef', 'deleteFieldDef',
+    ],
+  },
+  {
+    group: 'Text Fields',
+    tools: [
+      'listTextFields', 'getTextField', 'createTextField', 'updateTextField', 'deleteTextField',
+    ],
+  },
+  {
+    group: 'Tags',
+    tools: [
+      'listTags', 'createTag', 'deleteTag',
+      'listEntityTags', 'attachTagToEntity', 'detachTagFromEntity',
+    ],
+  },
+  {
+    group: 'Relations',
+    tools: [
+      'listEntityRelations', 'attachEntityRelation', 'detachEntityRelation',
+    ],
+  },
+  {
+    group: 'Media',
+    tools: ['listMedia', 'uploadMedia'],
+  },
+  {
+    group: 'Webhooks',
+    tools: ['listWebhooks', 'createWebhook', 'deleteWebhook'],
+  },
+  {
+    group: 'Navigation',
+    tools: ['listNavigationItems', 'createNavigationItem', 'updateNavigationItem', 'deleteNavigationItem'],
+  },
+  {
+    group: 'Site Settings',
+    tools: ['listSettings', 'updateSetting', 'listSettingRevisions'],
+  },
+  {
+    group: 'Public (read-only)',
+    tools: [
+      'getPublicBootstrap', 'listPublicEntities', 'getPublicEntity', 'getPublicEntityBySlug',
+    ],
+  },
+  {
+    group: 'Analytics',
+    tools: ['getDashboard', 'getAccessAnalytics'],
+  },
+  {
+    group: 'Export',
+    tools: ['exportEntities'],
+  },
+]
+---
+
+<DocLayout section="MCP Tools" description="60+ MCP tools for AI agents to operate NeNe Records.">
+  <h1 class="mb-2 text-3xl font-bold text-white">MCP Tools</h1>
+  <p class="mb-4 text-gray-400">
+    NeNe Records exposes 60+ tools through the
+    <a href="https://modelcontextprotocol.io" target="_blank" rel="noopener noreferrer">Model Context Protocol (MCP)</a>,
+    allowing AI agents to manage content in natural language.
+  </p>
+  <p class="mb-8 text-gray-400">
+    All MCP tools map directly to HTTP API operations — same auth, same validation, same responses.
+  </p>
+
+  <h2>Configuration (smithery.yaml)</h2>
+  <p>Add NeNe Records to your MCP client using <code>smithery.yaml</code>:</p>
+  <pre><code>{`startCommand:
+  type: stdio
+  configSchema:
+    type: object
+    properties:
+      baseUrl:
+        type: string
+        description: "API base URL, e.g. https://your-host/api/v1"
+      token:
+        type: string
+        description: "JWT Bearer token from POST /auth/login"
+    required: [baseUrl]`}</code></pre>
+
+  <h2>Tool catalog</h2>
+
+  <div class="not-prose space-y-6">
+    {toolGroups.map((g) => (
+      <div>
+        <h3 class="mb-2 text-xs font-semibold uppercase tracking-wider text-gray-500">{g.group}</h3>
+        <div class="flex flex-wrap gap-2">
+          {g.tools.map((tool) => (
+            <code class="rounded-full border border-nene-500/30 bg-nene-950/50 px-3 py-1 text-xs text-nene-300">
+              {tool}
+            </code>
+          ))}
+        </div>
+      </div>
+    ))}
+  </div>
+
+  <h2>Example usage</h2>
+  <p>Ask your AI agent:</p>
+  <ul>
+    <li><em>"List all published blog posts"</em></li>
+    <li><em>"Create a new entity type called 'Products' with text and int fields"</em></li>
+    <li><em>"Search for entities mentioning 'TypeScript'"</em></li>
+    <li><em>"Export all posts as CSV"</em></li>
+    <li><em>"Show me the access analytics for this month"</em></li>
+  </ul>
+</DocLayout>

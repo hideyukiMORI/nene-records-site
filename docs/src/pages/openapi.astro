@@ -1,0 +1,54 @@
+---
+import DocLayout from '../layouts/DocLayout.astro'
+---
+
+<DocLayout section="OpenAPI Spec" description="OpenAPI 3.x specification for the NeNe Records API.">
+  <h1 class="mb-2 text-3xl font-bold text-white">OpenAPI Specification</h1>
+  <p class="mb-8 text-gray-400">
+    The full API contract is maintained as an OpenAPI 3.x YAML file in the repository.
+  </p>
+
+  <h2>Download</h2>
+  <div class="not-prose flex flex-wrap gap-3">
+    <a
+      href="https://raw.githubusercontent.com/hideyukiMORI/nene-records/main/docs/openapi/openapi.yaml"
+      target="_blank"
+      rel="noopener noreferrer"
+      class="flex items-center gap-2 rounded-lg border border-white/20 bg-white/5 px-4 py-2 text-sm text-white transition hover:border-white/40"
+    >
+      📄 openapi.yaml (raw)
+    </a>
+    <a
+      href="https://github.com/hideyukiMORI/nene-records/blob/main/docs/openapi/openapi.yaml"
+      target="_blank"
+      rel="noopener noreferrer"
+      class="flex items-center gap-2 rounded-lg border border-white/20 bg-white/5 px-4 py-2 text-sm text-white transition hover:border-white/40"
+    >
+      GitHub で見る ↗
+    </a>
+  </div>
+
+  <h2>Use with Swagger UI</h2>
+  <pre><code>npx @redocly/cli preview-docs \
+  https://raw.githubusercontent.com/hideyukiMORI/nene-records/main/docs/openapi/openapi.yaml</code></pre>
+
+  <h2>Generate a client</h2>
+  <pre><code># TypeScript (openapi-typescript)
+npx openapi-typescript \
+  https://raw.githubusercontent.com/hideyukiMORI/nene-records/main/docs/openapi/openapi.yaml \
+  -o ./src/api/schema.d.ts
+
+# Any language via openapi-generator
+docker run --rm -v "$PWD:/local" openapitools/openapi-generator-cli generate \
+  -i https://raw.githubusercontent.com/hideyukiMORI/nene-records/main/docs/openapi/openapi.yaml \
+  -g python \
+  -o /local/client</code></pre>
+
+  <h2>Validate locally</h2>
+  <pre><code># Inside the NeNe Records repository
+composer openapi</code></pre>
+  <p>
+    The CI pipeline runs OpenAPI validation on every pull request using
+    <code>tools/validate-openapi.php</code>.
+  </p>
+</DocLayout>

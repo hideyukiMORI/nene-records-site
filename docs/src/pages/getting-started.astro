@@ -1,0 +1,84 @@
+---
+import DocLayout from '../layouts/DocLayout.astro'
+---
+
+<DocLayout section="Getting Started" description="Set up NeNe Records locally with Docker.">
+  <h1 class="mb-2 text-3xl font-bold text-white">Getting Started</h1>
+  <p class="mb-8 text-gray-400">Run NeNe Records locally in under 5 minutes.</p>
+
+  <h2>Prerequisites</h2>
+  <ul>
+    <li>Docker &amp; Docker Compose</li>
+    <li>Node.js 20+ (for the admin frontend)</li>
+    <li>Git</li>
+  </ul>
+
+  <h2>1. Clone the repository</h2>
+  <pre><code>git clone https://github.com/hideyukiMORI/nene-records.git
+cd nene-records</code></pre>
+
+  <h2>2. Configure environment</h2>
+  <pre><code>cp .env.example .env</code></pre>
+  <p>Edit <code>.env</code> — at minimum set <code>DB_PASSWORD</code> and <code>JWT_SECRET</code>.</p>
+
+  <h2>3. Start the stack</h2>
+  <pre><code>docker compose up -d</code></pre>
+  <p>This starts:</p>
+  <ul>
+    <li><strong>app</strong> — PHP 8.4 on <code>http://localhost:8082</code></li>
+    <li><strong>mysql</strong> — MySQL 8.4 on <code>localhost:3308</code></li>
+    <li><strong>phpmyadmin</strong> — <code>http://localhost:8083</code></li>
+    <li><strong>mailpit</strong> — <code>http://localhost:8026</code></li>
+  </ul>
+
+  <h2>4. Run migrations</h2>
+  <pre><code>docker compose exec app vendor/bin/phinx migrate</code></pre>
+
+  <h2>5. Start the frontend</h2>
+  <pre><code>cd frontend
+npm install
+npm run dev</code></pre>
+
+  <h2>6. Access</h2>
+  <div class="not-prose rounded-xl border border-white/10 bg-gray-900 p-4 font-mono text-sm space-y-1">
+    <p><span class="text-gray-500">Admin UI:    </span><a href="http://localhost:5173/admin" class="text-nene-400 hover:text-nene-300">http://localhost:5173/admin</a></p>
+    <p><span class="text-gray-500">Public site: </span><a href="http://localhost:5173/" class="text-nene-400 hover:text-nene-300">http://localhost:5173/</a></p>
+    <p><span class="text-gray-500">API:         </span><a href="http://localhost:8082/api/v1/" class="text-nene-400 hover:text-nene-300">http://localhost:8082/api/v1/</a></p>
+  </div>
+
+  <h2>Default credentials</h2>
+  <p>After migration, two users are seeded:</p>
+  <div class="not-prose overflow-x-auto">
+    <table class="w-full text-sm">
+      <thead>
+        <tr>
+          <th class="border border-white/10 bg-white/5 px-4 py-2 text-left text-gray-200">Email</th>
+          <th class="border border-white/10 bg-white/5 px-4 py-2 text-left text-gray-200">Password</th>
+          <th class="border border-white/10 bg-white/5 px-4 py-2 text-left text-gray-200">Role</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="border border-white/10 px-4 py-2 text-gray-300 font-mono">admin@nene-records.local</td>
+          <td class="border border-white/10 px-4 py-2 text-gray-300 font-mono">password</td>
+          <td class="border border-white/10 px-4 py-2 text-gray-300">admin</td>
+        </tr>
+        <tr>
+          <td class="border border-white/10 px-4 py-2 text-gray-300 font-mono">editor@nene-records.local</td>
+          <td class="border border-white/10 px-4 py-2 text-gray-300 font-mono">password</td>
+          <td class="border border-white/10 px-4 py-2 text-gray-300">editor</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h2>Verify everything works</h2>
+  <pre><code># PHP checks (264 tests + PHPStan + CS-Fixer + OpenAPI + MCP)
+composer check
+
+# Frontend checks (type-check + lint + test + storybook)
+npm run check --prefix frontend</code></pre>
+
+  <h2>Seed demo content</h2>
+  <pre><code>docker compose exec app php tools/seed-blog-demo.php http://localhost</code></pre>
+</DocLayout>

@@ -1,0 +1,40 @@
+name: Deploy LP (nene-records.com)
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'lp/**'
+      - '.github/workflows/deploy-lp.yml'
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: lp
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+          cache-dependency-path: lp/package-lock.json
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build
+        run: npm run build
+
+      - name: Deploy to heteml via FTP
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server: ${{ secrets.HETEML_FTP_HOST }}
+          username: ${{ secrets.HETEML_FTP_USER_LP }}
+          password: ${{ secrets.HETEML_FTP_PASS_LP }}
+          local-dir: lp/dist/
+          server-dir: ${{ secrets.HETEML_FTP_DIR_LP }}
+          dangerous-clean-slate: false

@@ -1,0 +1,81 @@
+---
+import DocLayout from '../layouts/DocLayout.astro'
+---
+
+<DocLayout title="NeNe Records — Developer Documentation">
+  <h1 class="mb-2 text-3xl font-bold text-white">NeNe Records</h1>
+  <p class="mb-8 text-lg text-gray-400">API-first Flexible Entity Platform — Developer Documentation</p>
+
+  <p>
+    NeNe Records is a lightweight, typed headless CMS platform built on
+    <a href="https://github.com/hideyukiMORI/NENE2">NENE2</a>.
+    It exposes all operations through a JSON REST API documented in OpenAPI 3.x,
+    and supports <a href="https://modelcontextprotocol.io">Model Context Protocol (MCP)</a>
+    for AI-native operations.
+  </p>
+
+  <h2>Quick navigation</h2>
+
+  <div class="not-prose grid gap-4 sm:grid-cols-2">
+    {[
+      {
+        href: '/getting-started',
+        title: 'Getting Started',
+        desc: 'Clone, configure, and run NeNe Records locally in minutes.',
+        icon: '🚀',
+      },
+      {
+        href: '/api',
+        title: 'API Reference',
+        desc: 'Full REST API — entity types, records, fields, media, webhooks, and more.',
+        icon: '📡',
+      },
+      {
+        href: '/mcp',
+        title: 'MCP Tools',
+        desc: '60+ MCP tools for AI agents to manage content in natural language.',
+        icon: '🤖',
+      },
+      {
+        href: '/problems',
+        title: 'Problem Details',
+        desc: 'RFC 9457 error responses — type URIs, fields, and troubleshooting.',
+        icon: '⚠️',
+      },
+    ].map((card) => (
+      <a
+        href={card.href}
+        class="flex gap-3 rounded-xl border border-white/10 bg-white/5 p-4 transition hover:border-nene-500/40 hover:bg-white/8"
+      >
+        <span class="text-2xl">{card.icon}</span>
+        <div>
+          <p class="font-semibold text-white">{card.title}</p>
+          <p class="mt-0.5 text-sm text-gray-400">{card.desc}</p>
+        </div>
+      </a>
+    ))}
+  </div>
+
+  <h2>Base URL</h2>
+  <pre><code>https://your-host/api/v1</code></pre>
+
+  <h2>Authentication</h2>
+  <p>
+    All mutating endpoints (POST, PUT, PATCH, DELETE) require a JWT Bearer token obtained
+    from <code>POST /api/v1/auth/login</code>. Public GET endpoints are open.
+  </p>
+  <pre><code>Authorization: Bearer &lt;token&gt;</code></pre>
+
+  <h2>Response format</h2>
+  <p>All responses are JSON. Errors follow <a href="/problems">Problem Details (RFC 9457)</a>.</p>
+  <pre><code>{`// Success
+{ "id": 1, "name": "Posts", "slug": "posts" }
+
+// Error
+{
+  "type": "https://nene-records.dev/problems/validation-error",
+  "title": "Validation Error",
+  "status": 422,
+  "errors": [{ "field": "name", "detail": "Name is required.", "code": "required" }]
+}`}</code></pre>
+</DocLayout>
